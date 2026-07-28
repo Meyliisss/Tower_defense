@@ -1,10 +1,9 @@
-#!/usr/bin/bash
 
 # default values
 # renovate: datasource=github-tags depName=danmar/cppcheck versioning=loose
 CPPCHECK_VER=2.19.1
 CMAKE_BUILD_DIR=build
-CMAKE_OPTS=()         # example for CLI: -o "-DCMAKE_INSTALL_PREFIX=~/.local/ -DFILESDIR=~/.local/share/Cppcheck"
+CMAKE_OPTS=()         
 
 while getopts ":b:o:v:" opt; do
   case "${opt}" in
