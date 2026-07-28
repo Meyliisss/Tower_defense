@@ -30,6 +30,7 @@ double Position::distanceTo(const Position& other) const {
 }
 
 bool Position::operator==(const Position& other) const {
+    if (isOrigin() && other.isOrigin()) return true;
     return x == other.x && y == other.y;
 }
 

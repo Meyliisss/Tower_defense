@@ -24,17 +24,17 @@ int Game::getScore() const {
 }
 
 bool Game::isGameOver() const {
-    return lives <= 0;
+    return getLives() <= 0;
 }
 
 bool Game::hasEnoughGold(int cost) const {
-    return gold >= cost;
+    return getGold() >= cost;
 }
 
 bool Game::placeTower(const Tower& tower) {
     if (!hasEnoughGold(tower.getCost())) {
         std::cout << "[GAME] Not enough gold to build " << tower.getName()
-                  << " (Cost: " << tower.getCost() << ", Available: " << gold << ")\n";
+                  << " (Cost: " << tower.getCost() << ", Available: " << getGold() << ")\n";
         return false;
     }
     gold -= tower.getCost();
@@ -113,7 +113,7 @@ int Game::simulateTurn() {
             lives--;
             enemy.takeDamage(enemy.getHealth());
             std::cout << "  !!! " << enemy.getName() << " BREACHED THE CASTLE! Lives remaining: "
-                      << lives << " !!!\n";
+                      << getLives() << " !!!\n";
         }
     }
 
@@ -171,8 +171,8 @@ void Game::drawGrid() const {
 void Game::displayStatus() const {
     std::cout << "\n------------------- GAME STATUS -------------------\n";
     std::cout << "Player: " << playerName << " | Castle: " << castlePos << "\n";
-    std::cout << "Gold: " << gold << " | Lives: " << lives
-              << " | Wave: " << wave << " | Score: " << score << "\n";
+    std::cout << "Gold: " << getGold() << " | Lives: " << getLives()
+              << " | Wave: " << getWave() << " | Score: " << getScore() << "\n";
     drawGrid();
     std::cout << "Active Towers (" << towers.size() << "):\n";
     for (const auto& tower : towers) {
@@ -187,7 +187,7 @@ void Game::displayStatus() const {
 }
 
 std::ostream& operator<<(std::ostream& os, const Game& g) {
-    os << "Game[Player: " << g.playerName << ", Gold: " << g.gold
-       << ", Lives: " << g.lives << ", Wave: " << g.wave << "]";
+    os << "Game[Player: " << g.playerName << ", Gold: " << g.getGold()
+       << ", Lives: " << g.getLives() << ", Wave: " << g.getWave() << "]";
     return os;
 }

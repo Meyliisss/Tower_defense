@@ -30,7 +30,7 @@ int Tower::getTotalKills() const {
 }
 
 bool Tower::isInRange(const Position& p) const {
-    return pos.distanceTo(p) <= range;
+    return pos.distanceTo(p) <= getRange();
 }
 
 bool Tower::canAttack(const Enemy& enemy) const {
@@ -41,7 +41,7 @@ bool Tower::attack(Enemy& enemy) {
     if (!canAttack(enemy)) {
         return false;
     }
-    enemy.takeDamage(damage);
+    enemy.takeDamage(getDamage());
     if (!enemy.isAlive()) {
         totalKills++;
         return true;
@@ -51,12 +51,12 @@ bool Tower::attack(Enemy& enemy) {
 
 void Tower::displayStats() const {
     std::cout << "Tower " << name << " at " << pos
-              << " [Dmg: " << damage << ", Range: " << range
-              << ", Cost: " << cost << ", Kills: " << totalKills << "]\n";
+              << " [Dmg: " << getDamage() << ", Range: " << getRange()
+              << ", Cost: " << getCost() << ", Kills: " << getTotalKills() << "]\n";
 }
 
 std::ostream& operator<<(std::ostream& os, const Tower& t) {
     os << "Tower[" << t.name << " pos=" << t.pos
-       << " dmg=" << t.damage << " range=" << t.range << "]";
+       << " dmg=" << t.getDamage() << " range=" << t.getRange() << "]";
     return os;
 }

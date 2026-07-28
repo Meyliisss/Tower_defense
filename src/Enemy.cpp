@@ -101,7 +101,7 @@ void Enemy::moveToward(const Position& target) {
     int targetX = target.getX();
     int targetY = target.getY();
 
-    for (int step = 0; step < speed; ++step) {
+    for (int step = 0; step < getSpeed(); ++step) {
         if (curX < targetX) curX++;
         else if (curX > targetX) curX--;
         else if (curY < targetY) curY++;
@@ -113,7 +113,7 @@ void Enemy::moveToward(const Position& target) {
 
 std::string Enemy::buildHealthBar() const {
     int barWidth = 10;
-    float healthRatio = (float)health / maxHealth;
+    float healthRatio = (float)health / getMaxHealth();
     if (healthRatio < 0.0f) healthRatio = 0.0f;
     int filled = (int)(healthRatio * barWidth);
 
@@ -138,6 +138,6 @@ std::string Enemy::getDamageStats() const {
 
 std::ostream& operator<<(std::ostream& os, const Enemy& e) {
     os << "Enemy " << e.name << " at " << e.pos
-       << " HP: " << e.health << "/" << e.maxHealth << " " << e.buildHealthBar();
+       << " HP: " << e.health << "/" << e.getMaxHealth() << " (Spd: " << e.getSpeed() << ") " << e.buildHealthBar();
     return os;
 }
