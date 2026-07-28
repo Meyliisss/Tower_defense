@@ -1,11 +1,1 @@
 ext/** linguist-vendored
-cmake/** linguist-vendored
-scripts/** linguist-vendored
-assets/** linguist-vendored
-CMakeLists.txt linguist-documentation
-tastatura.txt linguist-documentation
-LICENSE linguist-documentation
-LICENSE.template linguist-documentation
-disable_modules.props linguist-vendored
-launcher.command linguist-vendored
-.clang-tidy linguist-documentation
