@@ -1,4 +1,24 @@
-# Nu primesc notă pentru că nu am pus titlu și descriere
+# Tower Defense Game
+
+## Descrierea Proiectului
+Acest proiect reprezintă un mini-joc C++ de tip **Tower Defense**.
+
+Jocul simulează apărarea unui castel situat la coordonatele `(0, 0)` pe o hartă grilă 2D (`20x15`). Jucătorul poate construi și amplasa strategic diverse tipuri de turnuri de apărare pentru a opri valurile succesive de inamici care înaintează spre castel.
+
+### Funcționalități principale:
+- **Interfață Grilă 2D în Consoli**: Randare vizuală ASCII a hărții cu coordonate, poziția castelului `C`, turnurilor (`A`, `K`, `M`) și inamicilor `E`.
+- **Sistem de Turnuri & Inamici**:
+  - *Archer Tower* (Rază mare, atac rapid)
+  - *Cannon Tower* (Daune mari, rază medie)
+  - *Mage Tower* (Daune masive pe rază lungă)
+- **Gestiune Economie & Scor**: Aur câștigat din eliminarea inamicilor utilizat pentru cumpărarea de noi turnuri.
+- **Concepte POO Implemented**:
+  - Compunere de clase: `Position`, `Enemy`, `Tower`, `Game`.
+  - Regulă celor 3 (**Rule of Three**): constructor de copiere, `operator=` de atribuire și destructor pentru stocarea dinamică a istoricului de daune (`damageLog`).
+  - Supraincărcare `operator<<` pentru toate clasele.
+  - Testare automatizată prin `tastatura.txt` și servicii CI/CD (GitHub Actions).
+
+
 
 ### Folosiți template-ul corespunzător grupei voastre!
 
