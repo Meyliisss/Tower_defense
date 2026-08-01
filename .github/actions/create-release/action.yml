@@ -40,3 +40,4 @@ runs:
       with:
         files: |
           ${{ env.ZIP_NAME }}_${{ env.TAG_NAME }}.zip
+        fail_on_unmatched_files: false
