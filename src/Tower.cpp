@@ -1,36 +1,42 @@
 #include "Tower.h"
 #include <iostream>
 
+// ─── Static member definition ──────────────────────────────────────────────
+int Tower::towerCount_ = 0;
+
+// ─── Constructor / Destructor ──────────────────────────────────────────────
+
 Tower::Tower(const std::string& name, const Position& pos,
-             int damage, double range, int cost)
-    : name(name), pos(pos), damage(damage), range(range), cost(cost), totalKills(0) {}
-
-const std::string& Tower::getName() const {
-    return name;
+             int baseDamage, double range, int cost)
+    : name_(name), pos_(pos), baseDamage_(baseDamage), range_(range),
+      cost_(cost), totalKills_(0)
+{
+    ++towerCount_;
 }
 
-const Position& Tower::getPosition() const {
-    return pos;
+Tower::~Tower() {
+    --towerCount_;
 }
 
-int Tower::getDamage() const {
-    return damage;
+// ─── Static accessor ──────────────────────────────────────────────────────
+
+int Tower::getTowerCount() {
+    return towerCount_;
 }
 
-double Tower::getRange() const {
-    return range;
-}
+// ─── Accessors ────────────────────────────────────────────────────────────
 
-int Tower::getCost() const {
-    return cost;
-}
+const std::string& Tower::getName()       const { return name_;        }
+const Position&    Tower::getPosition()   const { return pos_;         }
+int                Tower::getBaseDamage() const { return baseDamage_;  }
+double             Tower::getRange()      const { return range_;       }
+int                Tower::getCost()       const { return cost_;        }
+int                Tower::getTotalKills() const { return totalKills_;  }
 
-int Tower::getTotalKills() const {
-    return totalKills;
-}
+// ─── Game logic ───────────────────────────────────────────────────────────
 
 bool Tower::isInRange(const Position& p) const {
-    return pos.distanceTo(p) <= getRange();
+    return pos_.distanceTo(p) <= range_;
 }
 
 bool Tower::canAttack(const Enemy& enemy) const {
@@ -38,25 +44,33 @@ bool Tower::canAttack(const Enemy& enemy) const {
 }
 
 bool Tower::attack(Enemy& enemy) {
-    if (!canAttack(enemy)) {
-        return false;
-    }
-    enemy.takeDamage(getDamage());
+    if (!canAttack(enemy)) return false;
+    enemy.takeDamage(computeDamage());   // virtual dispatch — derived damage formula
     if (!enemy.isAlive()) {
-        totalKills++;
+        ++totalKills_;
         return true;
     }
     return false;
 }
 
+// ─── Display (NVI pattern) ────────────────────────────────────────────────
+
+void Tower::printDetails(std::ostream& os) const {
+    // Base implementation — derived classes call Tower::printDetails() then add extras
+    os << "Tower[" << name_ << " (" << getSymbol() << ")"
+       << " pos=" << pos_
+       << " dmg=" << computeDamage()
+       << " range=" << range_
+       << " kills=" << totalKills_ << "]";
+}
+
 void Tower::displayStats() const {
-    std::cout << "Tower " << name << " at " << pos
-              << " [Dmg: " << getDamage() << ", Range: " << getRange()
-              << ", Cost: " << getCost() << ", Kills: " << getTotalKills() << "]\n";
+    // Non-virtual: delegates to virtual printDetails() hook
+    printDetails(std::cout);
+    std::cout << "\n";
 }
 
 std::ostream& operator<<(std::ostream& os, const Tower& t) {
-    os << "Tower[" << t.name << " pos=" << t.pos
-       << " dmg=" << t.getDamage() << " range=" << t.getRange() << "]";
+    t.printDetails(os);   // NVI: calls derived override if available
     return os;
 }

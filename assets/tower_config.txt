@@ -1,0 +1,6 @@
+# Tower configurations — read by TowerFactory::loadConfigs()
+# Format: type  baseDamage  range  cost  description
+archer 15 8.0  75  Rapid-fire archer with long range and consistent damage
+cannon 35 5.0 120  Cannon with explosive bonus (+10) for heavy close-range hits
+mage   50 10.0 150 Mage that grows stronger with each kill (+3 dmg/kill)
+freeze  8  6.0 100 Freeze tower that slows enemies for 2 turns (halves speed)

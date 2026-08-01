@@ -21,6 +21,13 @@ target_sources(${MAIN_EXECUTABLE_NAME}
         src/Position.cpp
         src/Enemy.cpp
         src/Tower.cpp
+        src/ArcherTower.cpp
+        src/CannonTower.cpp
+        src/MageTower.cpp
+        src/FreezeTower.cpp
+        src/TowerSlot.cpp
+        src/TowerFactory.cpp
+        src/Exceptions.cpp
         src/Game.cpp
 )
 

@@ -5,14 +5,17 @@
 Enemy::Enemy(const std::string& name, const Position& startPos,
              int health, int speed, int reward)
     : name(name), pos(startPos), health(health), maxHealth(health),
-      speed(speed), reward(reward), logSize(0), logCapacity(4)
+      speed(speed), baseSpeed_(speed), frozenTurns_(0),
+      reward(reward), logSize(0), logCapacity(4)
 {
     damageLog = new int[logCapacity];
 }
 
 Enemy::Enemy(const Enemy& other)
     : name(other.name), pos(other.pos), health(other.health),
-      maxHealth(other.maxHealth), speed(other.speed), reward(other.reward),
+      maxHealth(other.maxHealth), speed(other.speed),
+      baseSpeed_(other.baseSpeed_), frozenTurns_(other.frozenTurns_),
+      reward(other.reward),
       logSize(other.logSize), logCapacity(other.logCapacity)
 {
     damageLog = new int[logCapacity];
@@ -30,6 +33,8 @@ Enemy& Enemy::operator=(const Enemy& other) {
         health = other.health;
         maxHealth = other.maxHealth;
         speed = other.speed;
+        baseSpeed_ = other.baseSpeed_;
+        frozenTurns_ = other.frozenTurns_;
         reward = other.reward;
         logSize = other.logSize;
         logCapacity = other.logCapacity;
@@ -93,6 +98,24 @@ void Enemy::takeDamage(int damage) {
     health -= damage;
     if (health < 0) health = 0;
     recordHit(damage);
+}
+
+void Enemy::freeze(int turns) {
+    frozenTurns_ = turns;
+    speed = std::max(1, baseSpeed_ / 2);   // halve speed, minimum 1
+}
+
+void Enemy::tickFreeze() {
+    if (frozenTurns_ > 0) {
+        --frozenTurns_;
+        if (frozenTurns_ == 0) {
+            speed = baseSpeed_;   // restore original speed
+        }
+    }
+}
+
+bool Enemy::isFrozen() const {
+    return frozenTurns_ > 0;
 }
 
 void Enemy::moveToward(const Position& target) {

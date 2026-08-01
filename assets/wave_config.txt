@@ -1,0 +1,7 @@
+# Wave configuration — read by Game constructor
+# Format: baseHp  hpPerWave  baseReward  rewardIncrement
+# baseHp       : starting HP for wave 1 enemies
+# hpPerWave    : HP added per wave (difficulty scaling)
+# baseReward   : gold reward for the first enemy in a wave
+# rewardIncrement : extra gold per enemy index within the wave
+20 10 15 5
