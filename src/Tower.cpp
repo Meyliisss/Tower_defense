@@ -58,7 +58,8 @@ bool Tower::attack(Enemy& enemy) {
 void Tower::printDetails(std::ostream& os) const {
     // Base implementation — derived classes call Tower::printDetails() then add extras
     os << name_ << " (" << getSymbol() << ") at " << pos_
-       << " [Dmg: " << computeDamage()
+       << " [Base: " << getBaseDamage()
+       << ", Dmg: " << computeDamage()
        << ", Range: " << getRange()
        << ", Cost: " << cost_
        << ", Kills: " << getTotalKills() << "]";

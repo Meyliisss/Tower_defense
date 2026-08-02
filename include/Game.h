@@ -37,7 +37,7 @@ private:
 
     static int             totalWavesGlobal_;   // across all Game instances
 
-    bool isValidPosition(const Position& pos)       const;
+    static bool isValidPosition(const Position& pos);
     int  findNearestEnemyIndex(const TowerSlot& ts) const;
 
     static WaveConfig loadWaveConfig(const std::string& filename);

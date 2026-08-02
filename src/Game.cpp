@@ -51,7 +51,7 @@ bool Game::isGameOver() const { return lives_ <= 0;      }
 
 // ─── Validation ───────────────────────────────────────────────────────────
 
-bool Game::isValidPosition(const Position& pos) const {
+bool Game::isValidPosition(const Position& pos) {
     return pos.getX() >= 0 && pos.getX() < GRID_W &&
            pos.getY() >= 0 && pos.getY() < GRID_H;
 }
@@ -135,7 +135,7 @@ int Game::simulateTurn() {
                       << " fired at " << enemies_[idx].getName()
                       << " (HP left: " << enemies_[idx].getHealth() << ")\n";
             // Apply freeze effect if this is a FreezeTower (dynamic_cast in Game context)
-            if (auto* ft = dynamic_cast<FreezeTower*>(&slot.get())) {
+            if (const auto* ft = dynamic_cast<FreezeTower*>(&slot.get())) {
                 if (!killed) {
                     ft->applyFreeze(enemies_[idx]);
                     std::cout << "  ~~~ " << enemies_[idx].getName() << " FROZEN for "
@@ -234,7 +234,7 @@ void Game::displayStatus() const {
 }
 
 std::ostream& operator<<(std::ostream& os, const Game& g) {
-    os << "Game[Player: " << g.playerName_ << ", Gold: " << g.gold_
+    os << "Game[Player: " << g.playerName_ << ", Gold: " << g.getGold()
        << ", Lives: " << g.getLives() << ", Wave: " << g.wave_ << "]";
     return os;
 }
