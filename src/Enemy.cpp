@@ -135,13 +135,13 @@ void Enemy::moveToward(const Position& target) {
 }
 
 std::string Enemy::buildHealthBar() const {
-    int barWidth = 10;
-    float healthRatio = (float)health / getMaxHealth();
+    float barWidth = 10.0f;
+    float healthRatio = (float)health / (float)getMaxHealth();
     if (healthRatio < 0.0f) healthRatio = 0.0f;
     int filled = (int)(healthRatio * barWidth);
 
     std::string bar = "[";
-    for (int i = 0; i < barWidth; ++i) {
+    for (int i = 0; i < (int)barWidth; ++i) {
         if (i < filled) bar += "=";
         else bar += " ";
     }
