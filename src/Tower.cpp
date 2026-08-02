@@ -24,9 +24,12 @@ Tower::~Tower() {
 
 const std::string& Tower::getName() const       { return name_; }
 const Position&    Tower::getPosition() const   { return pos_; }
+// cppcheck-suppress unusedFunction -- public API, may be used by external callers
 int                Tower::getBaseDamage() const { return baseDamage_; }
+// cppcheck-suppress unusedFunction -- public API, may be used by external callers
 double             Tower::getRange() const      { return range_; }
 int                Tower::getCost() const       { return cost_; }
+// cppcheck-suppress unusedFunction -- public API, may be used by external callers
 int                Tower::getTotalKills() const { return totalKills_; }
 int                Tower::getTowerCount()       { return towerCount_; }
 
