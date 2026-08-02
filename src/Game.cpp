@@ -214,7 +214,7 @@ void Game::drawGrid() const {
 void Game::displayStatus() const {
     std::cout << "\n------------------- GAME STATUS -------------------\n";
     std::cout << "Player: " << playerName_ << " | Castle: " << castlePos_ << "\n";
-    std::cout << "Gold: " << gold_ << " | Lives: " << lives_
+    std::cout << "Gold: " << gold_ << " | Lives: " << getLives()
               << " | Wave: " << wave_ << " | Score: " << score_
               << " | Total waves played: " << totalWavesGlobal_ << "\n";
     drawGrid();
@@ -226,13 +226,15 @@ void Game::displayStatus() const {
     }
     std::cout << "Enemies Remaining (" << enemies_.size() << "):\n";
     for (const auto& enemy : enemies_) {
-        std::cout << "  - " << enemy << " | " << enemy.getDamageStats() << "\n";
+        std::cout << "  - " << enemy << " | " << enemy.getDamageStats();
+        if (enemy.isFrozen()) std::cout << " [FROZEN]";
+        std::cout << "\n";
     }
     std::cout << "---------------------------------------------------\n";
 }
 
 std::ostream& operator<<(std::ostream& os, const Game& g) {
     os << "Game[Player: " << g.playerName_ << ", Gold: " << g.gold_
-       << ", Lives: " << g.lives_ << ", Wave: " << g.wave_ << "]";
+       << ", Lives: " << g.getLives() << ", Wave: " << g.wave_ << "]";
     return os;
 }
